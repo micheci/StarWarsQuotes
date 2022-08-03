@@ -1,0 +1,23 @@
+{
+  "name": "star_wars_quotes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micheci/StarWarsQuotes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/micheci/StarWarsQuotes/issues"
+  },
+  "homepage": "https://github.com/micheci/StarWarsQuotes#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
