@@ -14,16 +14,24 @@ MongoClient.connect(connectionString,{useUnifiedtopology:true})
         console.log("connected to database")
         const db=client.db('star-wars-quotes')
         const quotesCollection=db.collection('quotes')
-       
+        app.set('view engine','ejs')
+
         app.use(bodyParser.urlencoded({extended:true}))
 
         app.get('/',(req,res)=>{
-            res.sendFile(__dirname+'/index.html') })
+            quotesCollection.find().toArray()
+                .then(results=>{
+                    console.log(results)
+                    res.render('index.ejs',{quotes:results})
+                })
+                .catch(error=>console.error(error))
+           })
 
         app.post('/quotes',(req,res)=>{
             quotesCollection.insertOne(req.body)
                 .then(result=>{
-                    console.log(result)})
+                    console.log(result)
+                    res.redirect('/')})
                 .catch(error=>console.error(error))
             })
 
