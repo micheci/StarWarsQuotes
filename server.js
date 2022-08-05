@@ -17,12 +17,14 @@ MongoClient.connect(connectionString,{useUnifiedtopology:true})
         app.set('view engine','ejs')
 
         app.use(bodyParser.urlencoded({extended:true}))
+        app.use(express.static('public'))
+        app.use(bodyParser.json())
 
         app.get('/',(req,res)=>{
             quotesCollection.find().toArray()
                 .then(results=>{
                     console.log(results)
-                    res.render('index.ejs',{quotes:results})
+                    res.render('index.ejs',{quotes:results})//returns html to response
                 })
                 .catch(error=>console.error(error))
            })
@@ -35,9 +37,29 @@ MongoClient.connect(connectionString,{useUnifiedtopology:true})
                 .catch(error=>console.error(error))
             })
 
+        app.put('/quotes',(req,res)=>{
+            quotesCollection.findOneAndUpdate(
+                {name:'Yoda'},
+                {
+                    $set:{
+                        name:req.body.name,
+                        quote:req.body.quote
+                    }
+                },
+                {
+                    upsert:true
+                }
+            ) 
+            .then(result=>{
+                console.log(result)
+            })           
+            .catch(error=>console.error(error))
+        })    
+
         app.listen(3000,(req,res)=>{
             console.log("hi")
         })
+
 
 
 
