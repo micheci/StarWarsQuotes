@@ -1,5 +1,6 @@
 const express=require('express')
 const bodyParser=require('body-parser')
+const { query } = require('express')
 const app=express()
 const MongoClient=require('mongodb').MongoClient
 const connectionString='mongodb+srv://Micheci:Micheci12!@cluster0.6tapr9t.mongodb.net/?retryWrites=true&w=majority'
@@ -56,6 +57,16 @@ MongoClient.connect(connectionString,{useUnifiedtopology:true})
             })           
             .catch(error=>console.error(error))
         })    
+
+        app.delete('/quotes',(req,res)=>{
+            quotesCollection.deleteOne(
+            {name:req.body.name}
+            )
+            .then(result=>{
+                res.json("Deleted Darth Vader's quote")
+            })
+            .catch(error=>console.log(error))
+        })
 
         app.listen(3000,(req,res)=>{
             console.log("hi")
