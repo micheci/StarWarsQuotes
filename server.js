@@ -68,7 +68,7 @@ MongoClient.connect(connectionString,{useUnifiedtopology:true})
             .catch(error=>console.log(error))
         })
 
-        app.listen(3000,(req,res)=>{
+        app.listen(process.env.PORT||3000,(req,res)=>{
             console.log("hi")
         })
 
